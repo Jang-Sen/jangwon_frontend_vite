@@ -1,14 +1,17 @@
 import React from 'react';
-import { useUserStore } from '../store/user-store.ts';
 import { Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../store/user-store.ts';
+import { useGetProfile } from '../hooks/useAuthentication.ts';
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
 
-  const { user: data, removeCredentials } = useUserStore();
-  console.log('use User Store', useUserStore());
-  console.log('profile user', data?.accessToken);
+  const { removeCredentials } = useUserStore();
+
+  const { data } = useGetProfile();
+
+  console.log('@!@#!@#!@#!@#!@#!@#AAFEGE', data);
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -20,8 +23,8 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      {data?.user?.username}
-      {data?.user?.email}
+      {/*{data?.user?.username}*/}
+      {/*{data?.user?.email}*/}
 
       <Button variant="primary" onClick={logoutHandler}>
         로그아웃

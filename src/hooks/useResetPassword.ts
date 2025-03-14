@@ -21,3 +21,30 @@ export function useFindPassword() {
     onError: () => {},
   });
 }
+
+export function useChangePassword(token: string) {
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async (input: { password: string }) => {
+      try {
+        const { data } = await axios.post(
+          `http://localhost/api/v1/auth/change/password`,
+          { token, password: input.password }
+        );
+
+        console.log('Change Data', data);
+
+        return data;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    onSuccess: () => {
+      navigate('/login');
+    },
+    onError: (error) => {
+      console.error('Error: ', error);
+    },
+  });
+}

@@ -3,13 +3,10 @@ import { z } from 'zod';
 export const LoginFormSchema = z.object({
   email: z
     .string()
-    .min(1, 'email is required')
     .trim()
-    .email({ message: 'invalid Email' })
-    .toLowerCase(),
-  password: z.string().trim().min(6, {
-    message: '최소 6자리',
-  }),
+    .nonempty('이메일을 입력해주세요.')
+    .email({ message: '이메일 형식을 입력해주세요.' }),
+  password: z.string().trim().nonempty('비밀번호를 입력해주세요.'),
 });
 
 export type LoginFormType = z.infer<typeof LoginFormSchema>;
